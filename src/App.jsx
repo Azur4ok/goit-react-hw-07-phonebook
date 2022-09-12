@@ -10,6 +10,7 @@ export const App = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(state => state.contacts.items);
   const status = useSelector(isLoaded);
+  console.log(status);
 
   React.useEffect(() => {
     dispatch(fetchContacts());
@@ -23,7 +24,11 @@ export const App = () => {
       <h2>Contacts</h2>
       <Filter />
       {contacts.length ? (
-        <ContactList />
+        status === 'loading' ? (
+          <div className={styles.notification}>loading...</div>
+        ) : (
+          <ContactList />
+        )
       ) : (
         <h2 className={styles.notification}>Contact list is empty</h2>
       )}

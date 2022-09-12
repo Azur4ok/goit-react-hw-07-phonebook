@@ -1,10 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchAddContact, fetchContacts } from './../thunks/index';
+import {
+  fetchAddContact,
+  fetchContacts,
+  fetchRemoveContact,
+} from './../thunks/index';
 
 const initialState = {
   items: [],
   filter: '',
-  status: 'loading'
+  status: 'loading',
 };
 
 const contactsSlice = createSlice({
@@ -17,26 +21,35 @@ const contactsSlice = createSlice({
   },
   extraReducers: {
     [fetchContacts.fulfilled]: (state, action) => {
-      state.items = action.payload
-      state.status = 'loaded'
+      state.items = action.payload;
+      state.status = 'loaded';
     },
     [fetchContacts.rejected]: (state, action) => {
-      state.status = 'error'
+      state.status = 'error';
     },
     [fetchAddContact.pending]: (state, action) => {
-      state.status = 'loading'
+      state.status = 'loading';
     },
     [fetchAddContact.fulfilled]: (state, action) => {
-      state.status = 'loaded'
+      state.status = 'loaded';
     },
     [fetchAddContact.rejected]: (state, action) => {
-      state.status = 'error'
+      state.status = 'error';
     },
-  }
+    [fetchRemoveContact.pending]: (state, action) => {
+      state.status = 'loading';
+    },
+    [fetchRemoveContact.fulfilled]: (state, action) => {
+      state.status = 'loaded';
+    },
+    [fetchRemoveContact.rejected]: (state, action) => {
+      state.status = 'error';
+    },
+  },
 });
 
-export const {setFilter } = contactsSlice.actions;
+export const { setFilter } = contactsSlice.actions;
 
-export const contactsReducer = contactsSlice.reducer
+export const contactsReducer = contactsSlice.reducer;
 
-export const isLoaded = state => state.contacts.status
+export const isLoaded = state => state.contacts.status;
