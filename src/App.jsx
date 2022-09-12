@@ -12,8 +12,8 @@ export const App = () => {
   const status = useSelector(isLoaded);
 
   React.useEffect(() => {
-    //eslint-ignore-next-line
     dispatch(fetchContacts());
+    //eslint-disable-next-line
   }, [status]);
 
   return (
